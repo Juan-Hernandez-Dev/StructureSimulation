@@ -1,3 +1,4 @@
+#include "../../../include/utils.h"
 #include "binary_tree.h"
 
 BinaryTree::BinaryTree() : root(nullptr) {}
@@ -150,7 +151,7 @@ TreeNode* BinaryTree::findMax(TreeNode* node) {
 }
 
 void BinaryTree::displayMenu() {
-    std::cout << "\n--- BINARY TREE OPERATIONS ---" << std::endl;
+    std::cout << CYAN << "BINARY TREE OPERATIONS" << RESET << std::endl;
     std::cout << "1. Insert" << std::endl;
     std::cout << "2. Delete" << std::endl;
     std::cout << "3. Search" << std::endl;
@@ -168,13 +169,18 @@ void BinaryTree::displayMenu() {
 
 void BinaryTree::handleBinaryTreeOperations() {
     int choice, value;
+    cls();
+
     do {
         displayMenu();
         std::cin >> choice;
+        cls();
+        std::cout << CYAN << "Selected option: " << choice << RESET << std::endl;
+
         if (std::cin.fail()) {
             std::cin.clear();
             std::cin.ignore(10000, '\n');
-            std::cout << "Invalid input." << std::endl;
+            std::cout << RED << "Invalid input." << RESET << std::endl;
             continue;
         }
 
@@ -220,10 +226,12 @@ void BinaryTree::handleBinaryTreeOperations() {
                     std::cout << "Returning to main menu..." << std::endl;
                     break;
                 default:
-                    std::cout << "Invalid option." << std::endl;
+                    cls();
+                    std::cout << RED << "Invalid option." << RESET << std::endl;
             }
         } catch (const std::exception& e) {
-            std::cout << "Error: " << e.what() << std::endl;
+            cls();
+            std::cout << RED << "Error: " << e.what() << RESET << std::endl;
         }
 
     } while (choice != 0);

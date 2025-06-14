@@ -1,4 +1,4 @@
-// circular_linked_list.cpp
+#include "../../../include/utils.h"
 #include "circular_linked_list.h"
 
 CircularLinkedList::CircularLinkedList() : head(nullptr), listSize(0) {}
@@ -166,7 +166,7 @@ bool CircularLinkedList::isValidIndex(int index) {
 }
 
 void CircularLinkedList::displayMenu() {
-    std::cout << "\n--- CIRCULAR LINKED LIST OPERATIONS ---" << std::endl;
+    std::cout << CYAN << "CIRCULAR LINKED LIST OPERATIONS" << RESET << std::endl;
     std::cout << "1. Insert at beginning" << std::endl;
     std::cout << "2. Insert at end" << std::endl;
     std::cout << "3. Insert at index" << std::endl;
@@ -184,14 +184,18 @@ void CircularLinkedList::displayMenu() {
 
 void CircularLinkedList::handleCircularLinkedListOperations() {
     int choice, value, index;
+    cls();
+
     do {
         displayMenu();
         std::cin >> choice;
+        cls();
+        std::cout << CYAN << "Selected option: " << choice << RESET << std::endl;
 
         if (std::cin.fail()) {
             std::cin.clear();
             std::cin.ignore(10000, '\n');
-            std::cout << "Invalid input. Try again." << std::endl;
+            std::cout << RED << "Invalid input. Try again." << RESET << std::endl;
             continue;
         }
 
@@ -242,11 +246,13 @@ void CircularLinkedList::handleCircularLinkedListOperations() {
                     std::cout << "Returning to main menu..." << std::endl;
                     break;
                 default:
-                    std::cout << "Invalid choice." << std::endl;
+                    cls();
+                    std::cout << RED << "Invalid choice." << RESET << std::endl;
                     break;
             }
         } catch (const std::exception& e) {
-            std::cout << "Error: " << e.what() << std::endl;
+            cls();
+            std::cout << RED << "Error: " << e.what() << RESET << std::endl;
         }
 
     } while (choice != 0);

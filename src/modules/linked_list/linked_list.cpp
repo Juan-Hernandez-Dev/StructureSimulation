@@ -1,3 +1,4 @@
+#include "../../../include/utils.h"
 #include "linked_list.h"
 
 // Constructor
@@ -213,7 +214,7 @@ bool LinkedList::isValidIndex(int index) {
 
 // Display linked list operations menu
 void LinkedList::displayMenu() {
-    std::cout << "\n--- LINKED LIST OPERATIONS ---" << std::endl;
+    std::cout << CYAN << "LINKED LIST OPERATIONS" << RESET << std::endl;
     std::cout << "1. Insert at beginning" << std::endl;
     std::cout << "2. Insert at end" << std::endl;
     std::cout << "3. Insert at index" << std::endl;
@@ -232,10 +233,13 @@ void LinkedList::displayMenu() {
 void LinkedList::handleLinkedListOperations() {
     int choice;
     int value, index;
+    cls();
 
     do {
         displayMenu();
         std::cin >> choice;
+        cls();
+        std::cout << CYAN << "Selected option: " << choice << RESET << std::endl;
 
         if (std::cin.fail()) {
             std::cin.clear();
@@ -252,7 +256,7 @@ void LinkedList::handleLinkedListOperations() {
                     if (std::cin.fail()) {
                         std::cin.clear();
                         std::cin.ignore(10000, '\n');
-                        std::cout << "Invalid value." << std::endl;
+                        std::cout << RED << "Invalid value." << RESET << std::endl;
                     } else {
                         insertFirst(value);
                     }
@@ -264,7 +268,7 @@ void LinkedList::handleLinkedListOperations() {
                     if (std::cin.fail()) {
                         std::cin.clear();
                         std::cin.ignore(10000, '\n');
-                        std::cout << "Invalid value." << std::endl;
+                        std::cout << RED << "Invalid value." << RESET << std::endl;
                     } else {
                         insertLast(value);
                     }
@@ -278,7 +282,7 @@ void LinkedList::handleLinkedListOperations() {
                     if (std::cin.fail()) {
                         std::cin.clear();
                         std::cin.ignore(10000, '\n');
-                        std::cout << "Invalid input." << std::endl;
+                        std::cout << RED << "Invalid input." << RESET << std::endl;
                     } else {
                         insertAt(value, index);
                     }
@@ -298,7 +302,7 @@ void LinkedList::handleLinkedListOperations() {
                     if (std::cin.fail()) {
                         std::cin.clear();
                         std::cin.ignore(10000, '\n');
-                        std::cout << "Invalid input." << std::endl;
+                        std::cout << RED << "Invalid input." << RESET << std::endl;
                     } else {
                         deleteAt(index);
                     }
@@ -310,13 +314,13 @@ void LinkedList::handleLinkedListOperations() {
                     if (std::cin.fail()) {
                         std::cin.clear();
                         std::cin.ignore(10000, '\n');
-                        std::cout << "Invalid value." << std::endl;
+                        std::cout << RED << "Invalid value." << RESET << std::endl;
                     } else {
                         index = find(value);
                         if (index != -1) {
-                            std::cout << "Element " << value << " found at index " << index << std::endl;
+                            std::cout << RED << "Element " << value << " found at index " << index << RESET << std::endl;
                         } else {
-                            std::cout << "Element " << value << " not found in list" << std::endl;
+                            std::cout << RED << "Element " << value << " not found in list" << RESET << std::endl;
                         }
                     }
                     break;
@@ -338,11 +342,13 @@ void LinkedList::handleLinkedListOperations() {
                     break;
 
                 default:
-                    std::cout << "Invalid option. Please try again." << std::endl;
+                    cls();
+                    std::cout << RED << "Invalid option. Please try again." << RESET << std::endl;
                     break;
             }
         } catch (const std::exception& e) {
-            std::cout << "Error: " << e.what() << std::endl;
+            cls();
+            std::cout << RED << "Error: " << e.what() << RESET << std::endl;
         }
 
     } while (choice != 0);

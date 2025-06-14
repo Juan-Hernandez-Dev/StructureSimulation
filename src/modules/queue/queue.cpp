@@ -1,3 +1,4 @@
+#include "../../../include/utils.h"
 #include "queue.h"
 
 // Constructor
@@ -95,7 +96,7 @@ void Queue::display() {
 
 // Display queue operations menu
 void Queue::displayMenu() {
-    std::cout << "\n--- QUEUE OPERATIONS ---" << std::endl;
+    std::cout << CYAN << "QUEUE OPERATIONS" << RESET << std::endl;
     std::cout << "1. Enqueue element" << std::endl;
     std::cout << "2. Dequeue element" << std::endl;
     std::cout << "3. Front element" << std::endl;
@@ -111,15 +112,18 @@ void Queue::displayMenu() {
 void Queue::handleQueueOperations() {
     int choice;
     int value;
+    cls();
 
     do {
         displayMenu();
         std::cin >> choice;
+        cls();
+        std::cout << CYAN << "Selected option: " << choice << RESET << std::endl;
 
         if (std::cin.fail()) {
             std::cin.clear();
             std::cin.ignore(10000, '\n');
-            std::cout << "Invalid input. Please enter a number." << std::endl;
+            std::cout << RED << "Invalid input. Please enter a number." << RESET << std::endl;
             continue;
         }
 
@@ -131,7 +135,7 @@ void Queue::handleQueueOperations() {
                     if (std::cin.fail()) {
                         std::cin.clear();
                         std::cin.ignore(10000, '\n');
-                        std::cout << "Invalid value." << std::endl;
+                        std::cout << RED << "Invalid value." << RESET << std::endl;
                     } else {
                         enqueue(value);
                     }
@@ -149,9 +153,9 @@ void Queue::handleQueueOperations() {
 
                 case 4: // Is Empty
                     if (isEmpty()) {
-                        std::cout << "Queue is empty" << std::endl;
+                        std::cout << RED << "Queue is empty" << RESET << std::endl;
                     } else {
-                        std::cout << "Queue is not empty" << std::endl;
+                        std::cout << RED << "Queue is not empty" << RESET << std::endl;
                     }
                     break;
 
@@ -172,11 +176,13 @@ void Queue::handleQueueOperations() {
                     break;
 
                 default:
-                    std::cout << "Invalid option. Please try again." << std::endl;
+                    cls();
+                    std::cout << RED << "Invalid option. Please try again." << RESET << std::endl;
                     break;
             }
         } catch (const std::exception& e) {
-            std::cout << "Error: " << e.what() << std::endl;
+            cls();
+            std::cout << RED << "Error: " << e.what() << RESET << std::endl;
         }
 
     } while (choice != 0);

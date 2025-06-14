@@ -1,5 +1,5 @@
 #include <iostream>
-#include <limits>
+#include "../include/utils.h"
 #include "modules/stack/stack.h"
 #include "modules/queue/queue.h"
 #include "modules/linked_list/linked_list.h"
@@ -8,22 +8,8 @@
 #include "modules/binary_tree/binary_tree.h"
 using namespace std;
 
-#define RESET   "\033[0m"
-#define BOLD    "\033[1m"
-#define RED     "\033[31m"
-#define GREEN   "\033[32m"
-#define YELLOW  "\033[33m"
-#define BLUE    "\033[34m"
-#define MAGENTA "\033[35m"
-#define CYAN    "\033[36m"
-#define WHITE   "\033[37m"
-
-void cls() {
-    system("cls");
-}
-
 void showMenu() {
-    cout << BOLD << CYAN << "Menu:" << RESET << endl;
+    cout << BOLD << CYAN << "MENU" << RESET << endl;
     cout << "1. Stack" << endl;
     cout << "2. Queue" << endl;
     cout << "3. linked list" << endl;
@@ -34,10 +20,6 @@ void showMenu() {
     cout << "Select an option: ";
 }
 
-void clearBuffer() {
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-}
 
 int main() {
     int option;

@@ -1,3 +1,4 @@
+#include "../../../include/utils.h"
 #include "stack.h"
 
 // Constructor
@@ -86,7 +87,7 @@ void Stack::display() {
 
 // Display stack operations menu
 void Stack::displayMenu() {
-    std::cout << "\n--- STACK OPERATIONS ---" << std::endl;
+    std::cout << CYAN << "STACK OPERATIONS" << RESET << std::endl;
     std::cout << "1. Push element" << std::endl;
     std::cout << "2. Pop element" << std::endl;
     std::cout << "3. Peek/Top element" << std::endl;
@@ -102,15 +103,18 @@ void Stack::displayMenu() {
 void Stack::handleStackOperations() {
     int choice;
     int value;
+    cls();
 
     do {
         displayMenu();
         std::cin >> choice;
-
+        cls();
+        std::cout << CYAN << "Selected option: " << choice << RESET << std::endl;
+        
         if (std::cin.fail()) {
             std::cin.clear();
             std::cin.ignore(10000, '\n');
-            std::cout << "Invalid input. Please enter a number." << std::endl;
+            std::cout << RED << "Invalid input. Please enter a number." << RESET << std::endl;
             continue;
         }
 
@@ -122,7 +126,7 @@ void Stack::handleStackOperations() {
                     if (std::cin.fail()) {
                         std::cin.clear();
                         std::cin.ignore(10000, '\n');
-                        std::cout << "Invalid value." << std::endl;
+                        std::cout << RED << "Invalid value." << RESET << std::endl;
                     } else {
                         push(value);
                     }
@@ -140,9 +144,9 @@ void Stack::handleStackOperations() {
 
                 case 4: // Is Empty
                     if (isEmpty()) {
-                        std::cout << "Stack is empty" << std::endl;
+                        std::cout << RED << "Stack is empty" << RESET << std::endl;
                     } else {
-                        std::cout << "Stack is not empty" << std::endl;
+                        std::cout << RED << "Stack is not empty" << RESET << std::endl;
                     }
                     break;
 
@@ -163,11 +167,13 @@ void Stack::handleStackOperations() {
                     break;
 
                 default:
-                    std::cout << "Invalid option. Please try again." << std::endl;
+                    cls();
+                    std::cout << RED << "Invalid option. Please try again." << RESET << std::endl;
                     break;
             }
         } catch (const std::exception& e) {
-            std::cout << "Error: " << e.what() << std::endl;
+            cls();
+            std::cout << RED << "Error: " << e.what() << RESET << std::endl;
         }
 
     } while (choice != 0);
