@@ -6,11 +6,24 @@
 #include "modules/doubly_linked_list/doubly_linked_list.h"
 #include "modules/circular_linked_list/circular_linked_list.h"
 #include "modules/binary_tree/binary_tree.h"
-
 using namespace std;
 
+#define RESET   "\033[0m"
+#define BOLD    "\033[1m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
+#define WHITE   "\033[37m"
+
+void cls() {
+    system("cls");
+}
+
 void showMenu() {
-    cout << "\nMenu:" << endl;
+    cout << BOLD << CYAN << "Menu:" << RESET << endl;
     cout << "1. Stack" << endl;
     cout << "2. Queue" << endl;
     cout << "3. linked list" << endl;
@@ -28,6 +41,7 @@ void clearBuffer() {
 
 int main() {
     int option;
+    cls();
 
     do {
         showMenu();
@@ -35,8 +49,11 @@ int main() {
 
         if (cin.fail()) {
             clearBuffer();
-            cout << "Error: Please enter a valid number." << endl;
+            cout << BOLD << RED << "Error: Please enter a valid number." << RESET << endl;
             continue;
+        } else {
+            cls();
+            cout << BOLD << CYAN << "Selected option: " << option << RESET << endl;
         }
 
         switch (option) {
@@ -72,10 +89,11 @@ int main() {
             }
 
             case 0:
-                cout << "Goodbye!" << endl;
+                cout << BOLD << CYAN << "Goodbye!" << RESET << endl;
                 break;
             default:
-                cout << "Invalid option. Please try again." << endl;
+                cls();
+                cout << BOLD << RED << "Invalid option. Please try again." << RESET << endl;
                 break;
         }
 
