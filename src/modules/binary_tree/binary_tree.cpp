@@ -1,17 +1,23 @@
 #include "../../../include/utils.h"
 #include "binary_tree.h"
 
+// Constructor: Initialize an empty binary tree
 BinaryTree::BinaryTree() : root(nullptr) {}
 
+// Destructor: Clean up all nodes when the tree is destroyed
 BinaryTree::~BinaryTree() {
     clear();
 }
 
+// Insert a new node with value x into the tree
+// Maintains BST property
 void BinaryTree::insert(int x) {
     root = insertRecursive(root, x);
     std::cout << "Inserted: " << x << std::endl;
 }
 
+// Recursive helper for insert operation
+// Returns the new root of the subtree
 TreeNode* BinaryTree::insertRecursive(TreeNode* node, int x) {
     if (!node) return new TreeNode(x);
     if (x < node->data) node->left = insertRecursive(node->left, x);
@@ -19,11 +25,15 @@ TreeNode* BinaryTree::insertRecursive(TreeNode* node, int x) {
     return node;
 }
 
+// Remove the node with value x from the tree
+// Maintains BST property
 void BinaryTree::remove(int x) {
     root = removeRecursive(root, x);
     std::cout << "Removed: " << x << std::endl;
 }
 
+// Recursive helper for remove operation
+// Returns the new root of the subtree
 TreeNode* BinaryTree::removeRecursive(TreeNode* node, int x) {
     if (!node) return nullptr;
 
@@ -53,22 +63,26 @@ TreeNode* BinaryTree::removeRecursive(TreeNode* node, int x) {
     return node;
 }
 
+// Search for a node with value x in the tree
 bool BinaryTree::search(int x) {
     return searchRecursive(root, x);
 }
 
+// Recursive helper for search operation
 bool BinaryTree::searchRecursive(TreeNode* node, int x) {
     if (!node) return false;
     if (x == node->data) return true;
     return x < node->data ? searchRecursive(node->left, x) : searchRecursive(node->right, x);
 }
 
+// Perform in-order traversal (Left-Root-Right)
 void BinaryTree::inOrderTraversal() {
     std::cout << "In-Order: ";
     inOrder(root);
     std::cout << std::endl;
 }
 
+// Recursive helper for in-order traversal
 void BinaryTree::inOrder(TreeNode* node) {
     if (!node) return;
     inOrder(node->left);
@@ -76,12 +90,14 @@ void BinaryTree::inOrder(TreeNode* node) {
     inOrder(node->right);
 }
 
+// Perform pre-order traversal (Root-Left-Right)
 void BinaryTree::preOrderTraversal() {
     std::cout << "Pre-Order: ";
     preOrder(root);
     std::cout << std::endl;
 }
 
+// Recursive helper for pre-order traversal
 void BinaryTree::preOrder(TreeNode* node) {
     if (!node) return;
     std::cout << node->data << " ";
@@ -89,12 +105,14 @@ void BinaryTree::preOrder(TreeNode* node) {
     preOrder(node->right);
 }
 
+// Perform post-order traversal (Left-Right-Root)
 void BinaryTree::postOrderTraversal() {
     std::cout << "Post-Order: ";
     postOrder(root);
     std::cout << std::endl;
 }
 
+// Recursive helper for post-order traversal
 void BinaryTree::postOrder(TreeNode* node) {
     if (!node) return;
     postOrder(node->left);
@@ -102,10 +120,12 @@ void BinaryTree::postOrder(TreeNode* node) {
     std::cout << node->data << " ";
 }
 
+// Get the height of the tree, returns -1 for empty tree, 0 for single node
 int BinaryTree::height() {
     return heightRecursive(root);
 }
 
+// Recursive helper to calculate tree height
 int BinaryTree::heightRecursive(TreeNode* node) {
     if (!node) return 0;
     int left = heightRecursive(node->left);
@@ -113,16 +133,19 @@ int BinaryTree::heightRecursive(TreeNode* node) {
     return 1 + std::max(left, right);
 }
 
+// Check if the tree is empty, returns true if tree has no nodes, false otherwise
 bool BinaryTree::isEmpty() {
     return root == nullptr;
 }
 
+// Remove all nodes from the tree
 void BinaryTree::clear() {
     clearRecursive(root);
     root = nullptr;
     std::cout << "Binary tree cleared" << std::endl;
 }
 
+// Recursive helper to clear all nodes
 void BinaryTree::clearRecursive(TreeNode* node) {
     if (!node) return;
     clearRecursive(node->left);
@@ -130,26 +153,31 @@ void BinaryTree::clearRecursive(TreeNode* node) {
     delete node;
 }
 
+// Find the minimum value in the tree, throws runtime_error if tree is empty
 int BinaryTree::min() {
     if (!root) throw std::runtime_error("Tree is empty");
     return findMin(root)->data;
 }
 
+// Find the maximum value in the tree, throws runtime_error if tree is empty
 int BinaryTree::max() {
     if (!root) throw std::runtime_error("Tree is empty");
     return findMax(root)->data;
 }
 
+// Find the node with minimum value in a subtree, returns nullptr if node is null
 TreeNode* BinaryTree::findMin(TreeNode* node) {
     while (node && node->left) node = node->left;
     return node;
 }
 
+// Find the node with maximum value in a subtree, returns nullptr if node is null
 TreeNode* BinaryTree::findMax(TreeNode* node) {
     while (node && node->right) node = node->right;
     return node;
 }
 
+// Display the menu of available operations
 void BinaryTree::displayMenu() {
     std::cout << CYAN << "BINARY TREE OPERATIONS" << RESET << std::endl;
     std::cout << "1. Insert" << std::endl;
@@ -167,6 +195,7 @@ void BinaryTree::displayMenu() {
     std::cout << "Select operation: ";
 }
 
+// Handle user interaction for binary tree operations
 void BinaryTree::handleBinaryTreeOperations() {
     int choice, value;
     cls();

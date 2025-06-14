@@ -6,20 +6,18 @@
 #include "modules/doubly_linked_list/doubly_linked_list.h"
 #include "modules/circular_linked_list/circular_linked_list.h"
 #include "modules/binary_tree/binary_tree.h"
-using namespace std;
 
 void showMenu() {
-    cout << BOLD << CYAN << "MENU" << RESET << endl;
-    cout << "1. Stack" << endl;
-    cout << "2. Queue" << endl;
-    cout << "3. linked list" << endl;
-    cout << "4. Doubly linked lists" << endl;
-    cout << "5. Circular linked lists" << endl;
-    cout << "6. Binary tree" << endl;
-    cout << "0. Exit" << endl;
-    cout << "Select an option: ";
+    std::cout << BOLD << CYAN << "MENU" << RESET << std::endl;
+    std::cout << "1. Stack" << std::endl;
+    std::cout << "2. Queue" << std::endl;
+    std::cout << "3. linked list" << std::endl;
+    std::cout << "4. Doubly linked lists" << std::endl;
+    std::cout << "5. Circular linked lists" << std::endl;
+    std::cout << "6. Binary tree" << std::endl;
+    std::cout << "0. Exit" << std::endl;
+    std::cout << "Select an option: ";
 }
-
 
 int main() {
     int option;
@@ -27,15 +25,15 @@ int main() {
 
     do {
         showMenu();
-        cin >> option;
+        std::cin >> option;
 
-        if (cin.fail()) {
+        if (std::cin.fail()) {
             clearBuffer();
-            cout << BOLD << RED << "Error: Please enter a valid number." << RESET << endl;
+            std::cout << BOLD << RED << "Error: Please enter a valid number." << RESET << std::endl;
             continue;
         } else {
             cls();
-            cout << BOLD << CYAN << "Selected option: " << option << RESET << endl;
+            std::cout << BOLD << CYAN << "Selected option: " << option << RESET << std::endl;
         }
 
         switch (option) {
@@ -71,11 +69,11 @@ int main() {
             }
 
             case 0:
-                cout << BOLD << CYAN << "Goodbye!" << RESET << endl;
+                std::cout << BOLD << CYAN << "Goodbye!" << RESET << std::endl;
                 break;
             default:
                 cls();
-                cout << BOLD << RED << "Invalid option. Please try again." << RESET << endl;
+                std::cout << BOLD << RED << "Invalid option. Please try again." << RESET << std::endl;
                 break;
         }
 

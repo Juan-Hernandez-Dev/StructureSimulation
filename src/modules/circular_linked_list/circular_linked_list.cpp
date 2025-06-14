@@ -1,12 +1,15 @@
 #include "../../../include/utils.h"
 #include "circular_linked_list.h"
 
+// Constructor
 CircularLinkedList::CircularLinkedList() : head(nullptr), listSize(0) {}
 
+// Destructor
 CircularLinkedList::~CircularLinkedList() {
     clear();
 }
 
+// Insert a new node with value x at the beginning of the list
 void CircularLinkedList::insertFirst(int x) {
     CircularListNode* newNode = new CircularListNode(x);
     if (!head) {
@@ -23,6 +26,7 @@ void CircularLinkedList::insertFirst(int x) {
     std::cout << "Inserted " << x << " at the beginning" << std::endl;
 }
 
+// Insert a new node with value x at the end of the list
 void CircularLinkedList::insertLast(int x) {
     CircularListNode* newNode = new CircularListNode(x);
     if (!head) {
@@ -38,6 +42,7 @@ void CircularLinkedList::insertLast(int x) {
     std::cout << "Inserted " << x << " at the end" << std::endl;
 }
 
+// Remove and return the first node in the list, throws runtime_error if list is empty
 void CircularLinkedList::deleteFirst() {
     if (!head) throw std::runtime_error("List is empty");
 
@@ -57,6 +62,7 @@ void CircularLinkedList::deleteFirst() {
     std::cout << "Deleted first element: " << deletedValue << std::endl;
 }
 
+// Remove and return the last node in the list, throws runtime_error if list is empty
 void CircularLinkedList::deleteLast() {
     if (!head) throw std::runtime_error("List is empty");
 
@@ -80,6 +86,7 @@ void CircularLinkedList::deleteLast() {
     std::cout << "Deleted last element: " << deletedValue << std::endl;
 }
 
+// Insert a new node with value x at the specified index, throws out_of_range if index is invalid
 void CircularLinkedList::insertAt(int x, int index) {
     if (index < 0 || index > listSize) throw std::runtime_error("Invalid index");
     if (index == 0) {
@@ -96,6 +103,7 @@ void CircularLinkedList::insertAt(int x, int index) {
     }
 }
 
+// Remove and return the node at the specified index, throws out_of_range if index is invalid
 void CircularLinkedList::deleteAt(int index) {
     if (!isValidIndex(index)) throw std::runtime_error("Invalid index");
     if (index == 0) {
@@ -111,6 +119,7 @@ void CircularLinkedList::deleteAt(int index) {
     }
 }
 
+// Find the first occurrence of x in the list, returns index of x if found, -1 otherwise
 int CircularLinkedList::find(int x) {
     if (!head) return -1;
     CircularListNode* current = head;
@@ -123,15 +132,18 @@ int CircularLinkedList::find(int x) {
     return -1;
 }
 
+// Get the number of nodes in the list
 int CircularLinkedList::size() {
     return listSize;
 }
 
+// Remove all nodes from the list
 void CircularLinkedList::clear() {
     while (listSize > 0) deleteFirst();
     std::cout << "Circular linked list cleared" << std::endl;
 }
 
+// Check if the list is properly circular, returns true if the list is circular, false otherwise
 bool CircularLinkedList::isCircular() {
     if (!head) return false;
     CircularListNode* current = head->next;
@@ -139,6 +151,7 @@ bool CircularLinkedList::isCircular() {
     return current == head;
 }
 
+// Display the contents of the list
 void CircularLinkedList::display() {
     if (!head) {
         std::cout << "Circular linked list is empty" << std::endl;
@@ -154,6 +167,7 @@ void CircularLinkedList::display() {
     std::cout << std::endl;
 }
 
+// Get the node at the specified index, throws out_of_range if index is invalid
 CircularListNode* CircularLinkedList::getNodeAt(int index) {
     if (!isValidIndex(index)) return nullptr;
     CircularListNode* current = head;
@@ -161,10 +175,12 @@ CircularListNode* CircularLinkedList::getNodeAt(int index) {
     return current;
 }
 
+// Check if the given index is valid, returns true if index is within bounds, false otherwise
 bool CircularLinkedList::isValidIndex(int index) {
     return index >= 0 && index < listSize;
 }
 
+// Display the menu of available operations
 void CircularLinkedList::displayMenu() {
     std::cout << CYAN << "CIRCULAR LINKED LIST OPERATIONS" << RESET << std::endl;
     std::cout << "1. Insert at beginning" << std::endl;
@@ -182,6 +198,7 @@ void CircularLinkedList::displayMenu() {
     std::cout << "Select operation: ";
 }
 
+// Handle user interaction for circular linked list operations
 void CircularLinkedList::handleCircularLinkedListOperations() {
     int choice, value, index;
     cls();
