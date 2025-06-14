@@ -1,0 +1,253 @@
+// circular_linked_list.cpp
+#include "circular_linked_list.h"
+
+CircularLinkedList::CircularLinkedList() : head(nullptr), listSize(0) {}
+
+CircularLinkedList::~CircularLinkedList() {
+    clear();
+}
+
+void CircularLinkedList::insertFirst(int x) {
+    CircularListNode* newNode = new CircularListNode(x);
+    if (!head) {
+        newNode->next = newNode;
+        head = newNode;
+    } else {
+        CircularListNode* tail = head;
+        while (tail->next != head) tail = tail->next;
+        newNode->next = head;
+        head = newNode;
+        tail->next = head;
+    }
+    listSize++;
+    std::cout << "Inserted " << x << " at the beginning" << std::endl;
+}
+
+void CircularLinkedList::insertLast(int x) {
+    CircularListNode* newNode = new CircularListNode(x);
+    if (!head) {
+        newNode->next = newNode;
+        head = newNode;
+    } else {
+        CircularListNode* tail = head;
+        while (tail->next != head) tail = tail->next;
+        tail->next = newNode;
+        newNode->next = head;
+    }
+    listSize++;
+    std::cout << "Inserted " << x << " at the end" << std::endl;
+}
+
+void CircularLinkedList::deleteFirst() {
+    if (!head) throw std::runtime_error("List is empty");
+
+    int deletedValue = head->data;
+    if (head->next == head) {
+        delete head;
+        head = nullptr;
+    } else {
+        CircularListNode* tail = head;
+        while (tail->next != head) tail = tail->next;
+        CircularListNode* temp = head;
+        head = head->next;
+        tail->next = head;
+        delete temp;
+    }
+    listSize--;
+    std::cout << "Deleted first element: " << deletedValue << std::endl;
+}
+
+void CircularLinkedList::deleteLast() {
+    if (!head) throw std::runtime_error("List is empty");
+
+    int deletedValue;
+    if (head->next == head) {
+        deletedValue = head->data;
+        delete head;
+        head = nullptr;
+    } else {
+        CircularListNode* prev = nullptr;
+        CircularListNode* current = head;
+        while (current->next != head) {
+            prev = current;
+            current = current->next;
+        }
+        deletedValue = current->data;
+        prev->next = head;
+        delete current;
+    }
+    listSize--;
+    std::cout << "Deleted last element: " << deletedValue << std::endl;
+}
+
+void CircularLinkedList::insertAt(int x, int index) {
+    if (index < 0 || index > listSize) throw std::runtime_error("Invalid index");
+    if (index == 0) {
+        insertFirst(x);
+    } else if (index == listSize) {
+        insertLast(x);
+    } else {
+        CircularListNode* newNode = new CircularListNode(x);
+        CircularListNode* prev = getNodeAt(index - 1);
+        newNode->next = prev->next;
+        prev->next = newNode;
+        listSize++;
+        std::cout << "Inserted " << x << " at index " << index << std::endl;
+    }
+}
+
+void CircularLinkedList::deleteAt(int index) {
+    if (!isValidIndex(index)) throw std::runtime_error("Invalid index");
+    if (index == 0) {
+        deleteFirst();
+    } else {
+        CircularListNode* prev = getNodeAt(index - 1);
+        CircularListNode* toDelete = prev->next;
+        int deletedValue = toDelete->data;
+        prev->next = toDelete->next;
+        delete toDelete;
+        listSize--;
+        std::cout << "Deleted element " << deletedValue << " at index " << index << std::endl;
+    }
+}
+
+int CircularLinkedList::find(int x) {
+    if (!head) return -1;
+    CircularListNode* current = head;
+    int index = 0;
+    do {
+        if (current->data == x) return index;
+        current = current->next;
+        index++;
+    } while (current != head);
+    return -1;
+}
+
+int CircularLinkedList::size() {
+    return listSize;
+}
+
+void CircularLinkedList::clear() {
+    while (listSize > 0) deleteFirst();
+    std::cout << "Circular linked list cleared" << std::endl;
+}
+
+bool CircularLinkedList::isCircular() {
+    if (!head) return false;
+    CircularListNode* current = head->next;
+    while (current && current != head) current = current->next;
+    return current == head;
+}
+
+void CircularLinkedList::display() {
+    if (!head) {
+        std::cout << "Circular linked list is empty" << std::endl;
+        return;
+    }
+    std::cout << "List contents: ";
+    CircularListNode* current = head;
+    int index = 0;
+    do {
+        std::cout << "[" << index++ << ":" << current->data << "] ";
+        current = current->next;
+    } while (current != head);
+    std::cout << std::endl;
+}
+
+CircularListNode* CircularLinkedList::getNodeAt(int index) {
+    if (!isValidIndex(index)) return nullptr;
+    CircularListNode* current = head;
+    for (int i = 0; i < index; i++) current = current->next;
+    return current;
+}
+
+bool CircularLinkedList::isValidIndex(int index) {
+    return index >= 0 && index < listSize;
+}
+
+void CircularLinkedList::displayMenu() {
+    std::cout << "\n--- CIRCULAR LINKED LIST OPERATIONS ---" << std::endl;
+    std::cout << "1. Insert at beginning" << std::endl;
+    std::cout << "2. Insert at end" << std::endl;
+    std::cout << "3. Insert at index" << std::endl;
+    std::cout << "4. Delete first" << std::endl;
+    std::cout << "5. Delete last" << std::endl;
+    std::cout << "6. Delete at index" << std::endl;
+    std::cout << "7. Find element" << std::endl;
+    std::cout << "8. Get size" << std::endl;
+    std::cout << "9. Display list" << std::endl;
+    std::cout << "10. Clear list" << std::endl;
+    std::cout << "11. Check if circular" << std::endl;
+    std::cout << "0. Back to main menu" << std::endl;
+    std::cout << "Select operation: ";
+}
+
+void CircularLinkedList::handleCircularLinkedListOperations() {
+    int choice, value, index;
+    do {
+        displayMenu();
+        std::cin >> choice;
+
+        if (std::cin.fail()) {
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            std::cout << "Invalid input. Try again." << std::endl;
+            continue;
+        }
+
+        try {
+            switch (choice) {
+                case 1:
+                    std::cout << "Enter value to insert: "; std::cin >> value;
+                    insertFirst(value);
+                    break;
+                case 2:
+                    std::cout << "Enter value to insert: "; std::cin >> value;
+                    insertLast(value);
+                    break;
+                case 3:
+                    std::cout << "Enter value to insert: "; std::cin >> value;
+                    std::cout << "Enter index (0 to " << listSize << "): "; std::cin >> index;
+                    insertAt(value, index);
+                    break;
+                case 4:
+                    deleteFirst();
+                    break;
+                case 5:
+                    deleteLast();
+                    break;
+                case 6:
+                    std::cout << "Enter index to delete (0 to " << (listSize-1) << "): "; std::cin >> index;
+                    deleteAt(index);
+                    break;
+                case 7:
+                    std::cout << "Enter value to find: "; std::cin >> value;
+                    index = find(value);
+                    if (index != -1) std::cout << "Found at index " << index << std::endl;
+                    else std::cout << "Not found." << std::endl;
+                    break;
+                case 8:
+                    std::cout << "List size: " << size() << std::endl;
+                    break;
+                case 9:
+                    display();
+                    break;
+                case 10:
+                    clear();
+                    break;
+                case 11:
+                    std::cout << (isCircular() ? "List is circular." : "List is not circular.") << std::endl;
+                    break;
+                case 0:
+                    std::cout << "Returning to main menu..." << std::endl;
+                    break;
+                default:
+                    std::cout << "Invalid choice." << std::endl;
+                    break;
+            }
+        } catch (const std::exception& e) {
+            std::cout << "Error: " << e.what() << std::endl;
+        }
+
+    } while (choice != 0);
+}

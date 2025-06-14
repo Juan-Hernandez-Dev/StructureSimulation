@@ -1,29 +1,31 @@
 @echo off
-setlocal
+echo Compiling project...
 
-:: Create build directory if it doesn't exist
 if not exist build (
     mkdir build
 )
 
-:: Compile sources
-g++ -c src\cli\menu.cpp -o build\menu.o
-g++ -c src\backend\sum\sum.cpp -o build\sum.o
-g++ -c src\main.cpp -o build\main.o
+:: Habilitar expansión retardada
+setlocal enabledelayedexpansion
 
-:: Link object files
-g++ build\main.o build\menu.o build\sum.o -o build\app.exe
+:: Incluir main.cpp manualmente
+set "files=src/main.cpp"
 
-:: Check if compilation succeeded
-if %errorlevel% neq 0 (
-    echo Compilation failed.
-    pause
-    exit /b
+:: Recorrer todos los .cpp dentro de src/modules/*
+for /R src\modules %%f in (*.cpp) do (
+    set "files=!files! %%f"
 )
 
-:: Run the program
-echo Running...
-build\app.exe
+:: Compilar
+g++ !files! -o build/program.exe
 
-endlocal
+if errorlevel 1 (
+    echo Compilation failed
+    pause
+    exit
+)
+
+echo Compilation successful!
+echo.
+build\program.exe
 pause
