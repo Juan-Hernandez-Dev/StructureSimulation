@@ -25,7 +25,7 @@ A C++ console application that demonstrates various data structures and their op
 2. Open a command prompt in the project directory
 3. Run the following command to compile the project:
    ```
-   run.bat
+   ./run.bat
    ```
    This will create a `build` directory and compile all source files into `build/program.exe`
 
