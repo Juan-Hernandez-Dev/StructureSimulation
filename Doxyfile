@@ -1,0 +1,91 @@
+# Basic project information
+PROJECT_NAME           = "Structure Simulation"
+PROJECT_BRIEF          = "Documentation for the Structure Simulation project"
+OUTPUT_DIRECTORY       = docs
+
+# Enable all documentation generation
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO  # Disable LaTeX output if not needed
+GENERATE_TREEVIEW      = YES
+FULL_PATH_NAMES        = NO
+STRIP_FROM_PATH        = .
+
+# Documentation structure and organization
+RECURSIVE              = YES  # Process source files in subdirectories
+EXTRACT_ALL            = YES  # Include all members, even undocumented ones
+EXTRACT_PRIVATE        = YES  # Include private members
+EXTRACT_STATIC         = YES  # Include static members
+EXTRACT_LOCAL_CLASSES  = YES  # Include classes defined in implementation
+
+# For better presentation flow
+SORT_MEMBER_DOCS       = YES
+SORT_BRIEF_DOCS        = YES
+SORT_MEMBERS_CTORS_1ST = YES
+SORT_GROUP_NAMES       = YES
+SORT_BY_SCOPE_NAME     = YES
+
+# Include call and caller graphs
+HAVE_DOT               = YES
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+DOT_IMAGE_FORMAT       = svg
+INTERACTIVE_SVG        = YES
+
+# Better cross-referencing
+ALPHABETICAL_INDEX     = YES
+COLS_IN_ALPHA_INDEX    = 3
+
+# Enable documentation for groups
+TYPEDEF_HIDES_STRUCT   = YES
+
+# Example documentation
+EXAMPLE_PATH           = examples
+EXAMPLE_RECURSIVE      = YES
+
+# Source browsing
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = NO
+REFERENCED_BY_RELATION = YES
+REFERENCES_RELATION    = YES
+
+# Search functionality
+SEARCHENGINE           = YES
+
+# HTML output options
+HTML_OUTPUT            = html
+HTML_FILE_EXTENSION    = .html
+HTML_TIMESTAMP         = YES
+HTML_DYNAMIC_SECTIONS  = YES
+
+# Group related documentation together
+GROUP_NESTED_COMPOUNDS = YES
+SUBGROUPING            = YES
+
+# Enable documentation for preprocessor defines
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = YES
+PREDEFINED             = DOXYGEN_SHOULD_SKIP_THIS
+
+# Better organization of documentation
+SHOW_NAMESPACES        = YES
+TOC_INCLUDE_HEADINGS   = 4
+GENERATE_TREEVIEW      = YES
+FULL_SIDEBAR           = YES
+
+# For better code documentation
+JAVADOC_AUTOBRIEF      = YES
+QT_AUTOBRIEF           = YES
+MULTILINE_CPP_IS_BRIEF = YES
+INHERIT_DOCS           = YES
+SEPARATE_MEMBER_PAGES  = NO
+
+# Search functionality
+SEARCHENGINE           = YES
+SERVER_BASED_SEARCH    = YES
+EXTERNAL_SEARCH        = NO
+
+# For better code examples
+EXAMPLE_PATH           = examples
+EXAMPLE_RECURSIVE      = YES
+EXAMPLE_PATTERNS       = *.cpp *.h *.hpp *.c
